@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="inventory-ms">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/inventory-ms.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

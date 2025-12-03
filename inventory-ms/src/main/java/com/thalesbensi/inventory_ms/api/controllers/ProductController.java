@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/products")
+@RequestMapping("api/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -42,9 +42,9 @@ public class ProductController {
     }
 
     @PostMapping("/validate-stock/{id}")
-    public ResponseEntity<Void> validateStock(@Valid @PathVariable Long id, Integer quantity) {
-        productService.validateStock(id, quantity);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public ResponseEntity<Boolean> validateStock(@Valid @PathVariable Long id, Integer quantity) {
+        Boolean result = productService.validateStock(id, quantity);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @DeleteMapping("/{id}")

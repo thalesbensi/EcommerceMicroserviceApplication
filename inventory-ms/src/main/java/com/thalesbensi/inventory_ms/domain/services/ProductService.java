@@ -72,12 +72,10 @@ public class ProductService {
         productRepository.delete(productModel);
     }
 
-    public void validateStock(@Valid Long id, Integer quantity) {
+    public Boolean validateStock(@Valid Long id, Integer quantity) {
         ProductModel productModel = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        if (productModel.getQuantity() < quantity) {
-            throw new RuntimeException("Insufficient stock");
-        }
+        return productModel.getQuantity() >= quantity;
     }
 }

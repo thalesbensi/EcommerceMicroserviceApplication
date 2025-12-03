@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS sales_tb (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    product_id BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    unit_value DECIMAL(10,2) NOT NULL,
+    total_value DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)

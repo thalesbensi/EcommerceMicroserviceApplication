@@ -1,6 +1,7 @@
 package com.thalesbensi.sales_ms.api.controllers;
 
-import com.thalesbensi.sales_ms.api.dtos.SaleResponseDTO;
+import com.thalesbensi.sales_ms.api.dtos.Sale.SaleRequestDTO;
+import com.thalesbensi.sales_ms.api.dtos.Sale.SaleResponseDTO;
 import com.thalesbensi.sales_ms.domain.services.SaleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class SaleController {
     }
 
     @PostMapping()
-    public ResponseEntity<SaleResponseDTO> create() {
-        return ResponseEntity.status(HttpStatus.CREATED).body(saleService.create());
+    public ResponseEntity<SaleResponseDTO> create(SaleRequestDTO saleRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(saleService.create(saleRequestDTO));
     }
 
     @DeleteMapping("/{id}")

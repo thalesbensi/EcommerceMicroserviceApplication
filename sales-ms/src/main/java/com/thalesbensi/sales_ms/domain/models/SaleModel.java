@@ -1,6 +1,6 @@
 package com.thalesbensi.sales_ms.domain.models;
 
-import com.thalesbensi.sales_ms.api.dtos.SaleResponseDTO;
+import com.thalesbensi.sales_ms.api.dtos.Sale.SaleResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 

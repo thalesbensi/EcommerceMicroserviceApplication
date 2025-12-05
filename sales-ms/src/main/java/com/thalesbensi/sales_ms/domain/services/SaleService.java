@@ -1,19 +1,25 @@
 package com.thalesbensi.sales_ms.domain.services;
 
-import com.thalesbensi.sales_ms.api.dtos.SaleResponseDTO;
+import com.thalesbensi.sales_ms.api.clients.InventoryClient;
+import com.thalesbensi.sales_ms.api.dtos.Product.ProductResponseDTO;
+import com.thalesbensi.sales_ms.api.dtos.Sale.SaleRequestDTO;
+import com.thalesbensi.sales_ms.api.dtos.Sale.SaleResponseDTO;
 import com.thalesbensi.sales_ms.domain.models.SaleModel;
 import com.thalesbensi.sales_ms.domain.repositories.SaleRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
 public class SaleService {
 
     private final SaleRepository saleRepository;
+    private final InventoryClient inventoryClient;
 
-    public SaleService(SaleRepository saleRepository) {
+    public SaleService(SaleRepository saleRepository, InventoryClient inventoryClient) {
         this.saleRepository = saleRepository;
+        this.inventoryClient = inventoryClient;
     }
 
 
@@ -36,9 +42,32 @@ public class SaleService {
         return saleModel.toSaleResponseDTO();
     }
 
-    public SaleResponseDTO create() {
 
+    public SaleResponseDTO create(SaleRequestDTO saleRequestDTO) {
+
+        ProductResponseDTO product = inventoryClient.findById(saleRequestDTO.productId());
+        if (product == null) {
+            throw new RuntimeException("Product with id: " + saleRequestDTO.productId() + " not found");
+        }
+
+        if (product.quantity() < saleRequestDTO.quantity()) {
+            throw new RuntimeException("Insufficient Stock for product with id: " + saleRequestDTO.productId());
+        }
+
+        SaleModel saleModel = new SaleModel();
+        saleModel.setProductId(saleRequestDTO.productId());
+        saleModel.setQuantity(saleRequestDTO.quantity());
+        saleModel.setUnitValue(product.price());
+
+        BigDecimal total = product.price()
+                .multiply(BigDecimal.valueOf(saleRequestDTO.quantity()));
+        saleModel.setTotalValue(total);
+
+        SaleModel savedSale = saleRepository.save(saleModel);
+
+        return savedSale.toSaleResponseDTO();
     }
+
 
     public void delete(Long id) {
         SaleModel saleModel = saleRepository.findById(id)

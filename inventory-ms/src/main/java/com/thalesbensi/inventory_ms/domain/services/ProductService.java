@@ -1,7 +1,7 @@
 package com.thalesbensi.inventory_ms.domain.services;
 
-import com.thalesbensi.inventory_ms.api.dtos.ProductRequestDTO;
-import com.thalesbensi.inventory_ms.api.dtos.ProductResponseDTO;
+import com.thalesbensi.inventory_ms.api.dtos.productDtos.ProductRequestDTO;
+import com.thalesbensi.inventory_ms.api.dtos.productDtos.ProductResponseDTO;
 import com.thalesbensi.inventory_ms.domain.models.ProductModel;
 import com.thalesbensi.inventory_ms.domain.repositories.ProductRepository;
 import jakarta.validation.Valid;
@@ -41,7 +41,7 @@ public class ProductService {
     public ProductResponseDTO findById(@Valid Long id) {
         ProductModel product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
-        logger.info("Product with id {} has been consulted for sale", id);
+        logger.info("Product with id {} has been consulted", id);
       return product.toResponseDTO();
     }
 

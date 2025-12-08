@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @FeignClient(name = "inventory-ms", url = "http://localhost:8082/api/products")
 public interface InventoryClient {
 
-    @PostMapping("/validate-stock/{id}")
-    Boolean validateStock(@PathVariable Long id, Integer quantity);
-
     @GetMapping("/{id}")
     ProductResponseDTO findById(@PathVariable Long id);
 }

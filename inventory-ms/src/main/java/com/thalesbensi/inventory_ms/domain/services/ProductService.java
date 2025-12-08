@@ -71,11 +71,4 @@ public class ProductService {
 
         productRepository.delete(productModel);
     }
-
-    public Boolean validateStock(@Valid Long id, Integer quantity) {
-        ProductModel productModel = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-
-        return productModel.getQuantity() >= quantity;
-    }
 }

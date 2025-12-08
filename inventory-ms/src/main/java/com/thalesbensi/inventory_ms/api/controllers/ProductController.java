@@ -41,12 +41,6 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productService.update(id, productRequestDTO));
     }
 
-    @PostMapping("/validate-stock/{id}")
-    public ResponseEntity<Boolean> validateStock(@Valid @PathVariable Long id, Integer quantity) {
-        Boolean result = productService.validateStock(id, quantity);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@Valid @PathVariable Long id) {
         productService.delete(id);

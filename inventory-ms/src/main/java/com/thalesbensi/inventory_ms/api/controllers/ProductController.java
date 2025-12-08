@@ -1,7 +1,7 @@
 package com.thalesbensi.inventory_ms.api.controllers;
 
-import com.thalesbensi.inventory_ms.api.dtos.ProductRequestDTO;
-import com.thalesbensi.inventory_ms.api.dtos.ProductResponseDTO;
+import com.thalesbensi.inventory_ms.api.dtos.productDtos.ProductRequestDTO;
+import com.thalesbensi.inventory_ms.api.dtos.productDtos.ProductResponseDTO;
 import com.thalesbensi.inventory_ms.domain.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

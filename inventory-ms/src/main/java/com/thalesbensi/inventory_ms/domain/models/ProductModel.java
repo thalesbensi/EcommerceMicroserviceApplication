@@ -1,6 +1,6 @@
 package com.thalesbensi.inventory_ms.domain.models;
 
-import com.thalesbensi.inventory_ms.api.dtos.ProductResponseDTO;
+import com.thalesbensi.inventory_ms.api.dtos.productDtos.ProductResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 

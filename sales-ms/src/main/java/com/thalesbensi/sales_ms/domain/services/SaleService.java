@@ -4,6 +4,7 @@ import com.thalesbensi.sales_ms.api.clients.InventoryClient;
 import com.thalesbensi.sales_ms.api.dtos.Product.ProductResponseDTO;
 import com.thalesbensi.sales_ms.api.dtos.Sale.SaleRequestDTO;
 import com.thalesbensi.sales_ms.api.dtos.Sale.SaleResponseDTO;
+import com.thalesbensi.sales_ms.api.producers.SaleProducer;
 import com.thalesbensi.sales_ms.domain.models.SaleModel;
 import com.thalesbensi.sales_ms.domain.repositories.SaleRepository;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,12 @@ public class SaleService {
 
     private final SaleRepository saleRepository;
     private final InventoryClient inventoryClient;
+    private final SaleProducer saleProducer;
 
-    public SaleService(SaleRepository saleRepository, InventoryClient inventoryClient) {
+    public SaleService(SaleRepository saleRepository, InventoryClient inventoryClient, SaleProducer saleProducer) {
         this.saleRepository = saleRepository;
         this.inventoryClient = inventoryClient;
+        this.saleProducer = saleProducer;
     }
 
 
@@ -64,6 +67,7 @@ public class SaleService {
         saleModel.setTotalValue(total);
 
         SaleModel savedSale = saleRepository.save(saleModel);
+        saleProducer.publishSaleOnQueue(saleRequestDTO);
 
         return savedSale.toSaleResponseDTO();
     }

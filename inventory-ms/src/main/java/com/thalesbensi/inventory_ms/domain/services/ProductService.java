@@ -5,6 +5,8 @@ import com.thalesbensi.inventory_ms.api.dtos.ProductResponseDTO;
 import com.thalesbensi.inventory_ms.domain.models.ProductModel;
 import com.thalesbensi.inventory_ms.domain.repositories.ProductRepository;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ProductService {
 
     final ProductRepository productRepository;
+    final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -38,6 +41,7 @@ public class ProductService {
     public ProductResponseDTO findById(@Valid Long id) {
         ProductModel product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
+        logger.info("Product with id {} has been consulted for sale", id);
       return product.toResponseDTO();
     }
 

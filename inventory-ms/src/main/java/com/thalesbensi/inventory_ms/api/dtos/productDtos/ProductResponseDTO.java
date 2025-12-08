@@ -1,4 +1,4 @@
-package com.thalesbensi.inventory_ms.api.dtos;
+package com.thalesbensi.inventory_ms.api.dtos.productDtos;
 
 import java.math.BigDecimal;
 import java.util.Date;

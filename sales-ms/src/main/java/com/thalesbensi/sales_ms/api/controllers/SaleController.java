@@ -3,6 +3,7 @@ package com.thalesbensi.sales_ms.api.controllers;
 import com.thalesbensi.sales_ms.api.dtos.Sale.SaleRequestDTO;
 import com.thalesbensi.sales_ms.api.dtos.Sale.SaleResponseDTO;
 import com.thalesbensi.sales_ms.domain.services.SaleService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class SaleController {
     }
 
     @PostMapping()
-    public ResponseEntity<SaleResponseDTO> create(SaleRequestDTO saleRequestDTO) {
+    public ResponseEntity<SaleResponseDTO> create(@Valid @RequestBody SaleRequestDTO saleRequestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(saleService.create(saleRequestDTO));
     }
 

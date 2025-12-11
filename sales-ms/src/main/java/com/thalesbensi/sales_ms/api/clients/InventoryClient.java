@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@FeignClient(name = "inventory-ms", url = "http://localhost:8082/products")
+@FeignClient(name = "inventory-api")
 public interface InventoryClient {
-
-    @GetMapping("/{id}")
-    ProductResponseDTO findById(@PathVariable Long id);
+    @GetMapping("/products/{id}")
+    ProductResponseDTO findById(@PathVariable("id") Long id);
 }
+

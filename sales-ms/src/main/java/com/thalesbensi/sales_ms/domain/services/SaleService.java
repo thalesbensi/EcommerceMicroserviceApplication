@@ -7,11 +7,15 @@ import com.thalesbensi.sales_ms.api.dtos.Sale.SaleResponseDTO;
 import com.thalesbensi.sales_ms.api.producers.SaleProducer;
 import com.thalesbensi.sales_ms.domain.models.SaleModel;
 import com.thalesbensi.sales_ms.domain.repositories.SaleRepository;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 @Service
 public class SaleService {
 
@@ -47,7 +51,6 @@ public class SaleService {
 
 
     public SaleResponseDTO create(SaleRequestDTO saleRequestDTO) {
-
         ProductResponseDTO product = inventoryClient.findById(saleRequestDTO.productId());
         if (product == null) {
             throw new RuntimeException("Product with id: " + saleRequestDTO.productId() + " not found");

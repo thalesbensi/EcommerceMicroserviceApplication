@@ -1,8 +1,10 @@
 package com.thalesbensi.auth_service.domain.models.user;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +26,13 @@ public class UserModel implements UserDetails {
     private String password;
     private UserRole role;
     private Date createdAt;
+
+    public UserModel(String login, String password, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+        this.createdAt = new Date();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

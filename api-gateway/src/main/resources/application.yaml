@@ -12,6 +12,13 @@ spring:
           enabled: false
 
       routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth-service/**
+          filters:
+            - StripPrefix=1
+
         - id: sales-api
           uri: lb://sales-api
           predicates:
